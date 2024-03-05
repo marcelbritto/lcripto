@@ -1,0 +1,54 @@
+server:
+  port: 8080
+  error:
+    include-stacktrace: on-param 
+
+spring:
+  application:
+    name: LCripto
+    
+  jackson:
+    date-format: yyyy-MM-dd
+    time-zone: America/Sao_Paulo        
+    
+#physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl -> evita que o Spring converta atributos camelCase para underscore    
+  jpa:
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      hibernate:
+        "globally_quoted_identifiers": "true"
+    
+  data:
+    mongodb:
+      authentication-database: marcelbritto
+      database: LCriptoDatabase
+      uri: mongodb+srv://marcelbritto:marcbritto01@clustermarcbritto.ynvkok4.mongodb.net/?retryWrites=true&w=majority&appName=ClusterMarcBritto
+    
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG  
+ 
+#Configuração do Actuator: "*" - Ativa todos os endpoints 
+management:
+  info:
+    env:
+      enabled: true
+      
+  endpoints:
+    web:
+      exposure:
+        include: info, health
+                
+#Informações da aplicação no Actuator/SpringDoc
+info:
+  application:
+    name: ${spring.application.name}
+    description: CRUD para criptomoedas e suas operações.
+    version: '@project.version@'
+    spring-boot-version: '@project.parent.parent.version@' 
