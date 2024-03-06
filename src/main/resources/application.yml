@@ -26,7 +26,7 @@ spring:
     mongodb:
       authentication-database: marcelbritto
       database: LCriptoDatabase
-      uri: mongodb+srv://marcelbritto:marcbritto01@clustermarcbritto.ynvkok4.mongodb.net/?retryWrites=true&w=majority&appName=ClusterMarcBritto
+      uri: mongodb+srv://clustermarcbritto.ynvkok4.mongodb.net/?retryWrites=true&w=majority&appName=ClusterMarcBritto
     
 logging:
   level:
