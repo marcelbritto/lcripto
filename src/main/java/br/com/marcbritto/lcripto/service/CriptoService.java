@@ -9,6 +9,7 @@
  */
 package br.com.marcbritto.lcripto.service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,34 +29,46 @@ public class CriptoService implements ICriptoService {
 	private CriptoRepository repository;
 	
 	@Override
-	public Cripto findByName(String name) {
+	public Cripto findByName(String name) throws Exception {
 		
 		return repository.findByName(name)
 				.orElseThrow(() -> new Exception("Cripto moeda não encontrada: " + name));
 	}
 
 	@Override
-	public Cripto findByCode(String code) {
-		// TODO Auto-generated method stub
-		return null;
+	public Cripto findByCode(String code) throws Exception {
+		
+		return repository.findByCode(code)
+				.orElseThrow(() -> new Exception("Cripto moeda não encontrada: " + code));
 	}
 
 	@Override
 	public List<Cripto> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Cripto> criptoList = repository.findAll();
+		if (criptoList == null) return Collections.emptyList();
+		return criptoList;
 	}
 
 	@Override
-	public void deleteById(UUID id) {
-		// TODO Auto-generated method stub
-
+	public void deleteById(UUID id) throws Exception {
+		Cripto criptoToDelete = repository.findById(id)
+				.orElseThrow(() -> new Exception("Cripto moeda não encontrada"));
+		
+		repository.delete(criptoToDelete);
 	}
 
 	@Override
-	public Cripto save(Cripto cripto) {
-		// TODO Auto-generated method stub
-		return null;
+	public Cripto create (Cripto cripto) {
+		
+		return repository.save(cripto);
+	}
+	
+	@Override
+	public Cripto update (Cripto cripto) throws Exception {
+		
+		Cripto criptoToDelete = repository.findById(cripto.getId())
+				.orElseThrow(() -> new Exception("Cripto moeda não encontrada"));
+		return repository.save(cripto);
 	}
 
 }

@@ -6,14 +6,16 @@ import java.util.UUID;
 import br.com.marcbritto.lcripto.model.Cripto;
 
 public interface ICriptoService {
-	Cripto findByName (String name);
+	Cripto findByName (String name) throws Exception;
 	
-	Cripto findByCode (String code);
+	Cripto findByCode (String code) throws Exception;
 	
 	List<Cripto> findAll();
 	
-	void deleteById (UUID id);
+	void deleteById (UUID id) throws Exception;
 	
-	Cripto save (Cripto cripto);
+	Cripto create (Cripto cripto) throws Exception;
+	
+	Cripto update (Cripto cripto) throws Exception;
 	
 }
