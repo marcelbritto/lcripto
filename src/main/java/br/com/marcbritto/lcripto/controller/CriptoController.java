@@ -71,6 +71,9 @@ public class CriptoController {
 		try {
 			return new ResponseEntity<>(service.update(cripto), HttpStatus.CREATED);
 		} catch (Exception e) {
+			if (e.getMessage().contains(service.CRIPTO_MOEDA_NAO_ENCONTRADA)) {
+				return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+			}
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
     }
@@ -90,6 +93,9 @@ public class CriptoController {
 			service.deleteById(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
+			if (e.getMessage().contains(service.CRIPTO_MOEDA_NAO_ENCONTRADA)) {
+				return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+			}
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -110,5 +116,37 @@ public class CriptoController {
 		List<Cripto> criptoList = service.findAll();
 		if (criptoList.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return ResponseEntity.ok(criptoList);
+    }
+	
+	@Operation(summary = SwaggerConstants.FIND_ONE)
+    @ApiResponses(value = {
+		@ApiResponse(responseCode  = SwaggerConstants.OK, 
+	 			 	 description = SwaggerConstants.OK_DESCRIPTION,
+	 			 	 content = @Content(schema = @Schema(implementation = Cripto.class))),
+		@ApiResponse(responseCode  = SwaggerConstants.NOT_FOUND, 
+					description = SwaggerConstants.NOT_FOUND_DESCRIPTION),
+		@ApiResponse(responseCode  = SwaggerConstants.INTERNAL_ERROR, 
+		 			 description = SwaggerConstants.INTERNAL_ERROR_DESCRIPTION)
+    })
+    @GetMapping("/{nameOrCode}")
+    @ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<Object> findByNameOrCode(@PathVariable String nameOrCode){
+		try {
+			Cripto cripto = service.findByName(nameOrCode);
+			return new ResponseEntity<>(cripto, HttpStatus.OK);
+		} catch (Exception e) {
+			if (e.getMessage().contains(service.CRIPTO_MOEDA_NAO_ENCONTRADA)) {
+				try {
+					Cripto cripto = service.findByCode(nameOrCode);
+					return new ResponseEntity<>(cripto, HttpStatus.OK);
+				} catch (Exception ex) {
+					if (ex.getMessage().contains(service.CRIPTO_MOEDA_NAO_ENCONTRADA)) {
+						return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+					}
+					return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+				}
+			}
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
     }
 }

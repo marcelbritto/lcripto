@@ -4,11 +4,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
+import br.com.marcbritto.lcripto.repository.CustomMongoRepositoryImpl;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 
 @SpringBootApplication
-@EnableMongoRepositories
+@EnableMongoRepositories(basePackages = "br.com.marcbritto.lcripto.repository", repositoryBaseClass = CustomMongoRepositoryImpl.class)
 @OpenAPIDefinition(info = @Info(
 		title = "${spring.application.name}", 
 		version = "${info.application.version}", 

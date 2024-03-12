@@ -21,7 +21,10 @@ public class SwaggerConstants {
     public static final String INTERNAL_ERROR_DESCRIPTION = "Erro inesperado na Aplicação.";
     
     public static final String NO_CONTENT = "204";
-    public static final String NO_CONTENT_DESCRIPTION = "Item não encontrado.";
+    public static final String NO_CONTENT_DESCRIPTION = "Sem conteúdo.";
+    
+    public static final String NOT_FOUND = "404";
+    public static final String NOT_FOUND_DESCRIPTION = "Item não encontrado.";
     
     public static final String CREATED = "201";
     public static final String CREATED_DESCRIPTION = "Item criado.";

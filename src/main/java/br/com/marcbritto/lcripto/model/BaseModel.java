@@ -8,14 +8,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-@Data
-@SuperBuilder
-@NoArgsConstructor
+
 public abstract class BaseModel {
 
 	@Id   
     protected UUID id;    
 
+	public UUID getId() {
+        return id;
+    }
+	
     public void setId(UUID id) {
 
         if (this.id != null) {

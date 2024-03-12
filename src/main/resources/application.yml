@@ -24,6 +24,7 @@ spring:
     
   data:
     mongodb:
+      uuid-representation: standard
       authentication-database: marcelbritto
       database: LCriptoDatabase
       uri: mongodb+srv://${MONGODB_MARCBRITTO_USER}:${MONGODB_MARCBRITTO_PWD}@clustermarcbritto.ynvkok4.mongodb.net/?retryWrites=true&w=majority&appName=ClusterMarcBritto

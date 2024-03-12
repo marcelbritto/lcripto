@@ -10,7 +10,7 @@ import br.com.marcbritto.lcripto.model.Cripto;
 import br.com.marcbritto.lcripto.model.Operation;
 
 @Repository
-public interface OperationRepository extends MongoRepository<Cripto, UUID> {
+public interface OperationRepository extends CustomMongoRepository<Operation> {
 
 	List<Operation> findByCripto_Name (String name);
 }

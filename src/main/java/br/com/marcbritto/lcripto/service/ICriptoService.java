@@ -6,6 +6,8 @@ import java.util.UUID;
 import br.com.marcbritto.lcripto.model.Cripto;
 
 public interface ICriptoService {
+	public static final String CRIPTO_MOEDA_NAO_ENCONTRADA = "Cripto moeda não encontrada";
+
 	Cripto findByName (String name) throws Exception;
 	
 	Cripto findByCode (String code) throws Exception;

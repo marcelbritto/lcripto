@@ -24,7 +24,7 @@ import br.com.marcbritto.lcripto.repository.CriptoRepository;
  */
 @Service
 public class CriptoService implements ICriptoService {
-
+	
 	@Autowired
 	private CriptoRepository repository;
 	
@@ -32,14 +32,14 @@ public class CriptoService implements ICriptoService {
 	public Cripto findByName(String name) throws Exception {
 		
 		return repository.findByName(name)
-				.orElseThrow(() -> new Exception("Cripto moeda não encontrada: " + name));
+				.orElseThrow(() -> new Exception(CRIPTO_MOEDA_NAO_ENCONTRADA + ": " + name));
 	}
 
 	@Override
 	public Cripto findByCode(String code) throws Exception {
 		
 		return repository.findByCode(code)
-				.orElseThrow(() -> new Exception("Cripto moeda não encontrada: " + code));
+				.orElseThrow(() -> new Exception(CRIPTO_MOEDA_NAO_ENCONTRADA + ": " + code));
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class CriptoService implements ICriptoService {
 	@Override
 	public void deleteById(UUID id) throws Exception {
 		Cripto criptoToDelete = repository.findById(id)
-				.orElseThrow(() -> new Exception("Cripto moeda não encontrada"));
+				.orElseThrow(() -> new Exception(CRIPTO_MOEDA_NAO_ENCONTRADA));
 		
 		repository.delete(criptoToDelete);
 	}
